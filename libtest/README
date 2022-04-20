@@ -1,0 +1,19 @@
+
+// 静态库1
+g++ -o test1.o -c test1.c  // test1.o
+ar -v -q libtest1.a test1.o // libtest1.a
+ 
+// 静态库2
+g++ -o test2.o -c test2.c  // test2.o
+ar -v -q libtest2.a test2.o // libtest2.a
+ 
+// 把不同版本的静态库都链接进去，只是链接顺序不同
+g++ -o main1 main.c -L. -ltest1 -ltest2
+g++ -o main2 main.c -L. -ltest2 -ltest1
+ 
+// 观察输出结果
+./main1
+    输出 sum=7
+ 
+./main2
+    输出 sum=10
